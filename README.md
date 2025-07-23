@@ -1,12 +1,36 @@
-# React + Vite
+how we can do a lottery tickets game like first approach!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+import { useState } from "react";
+import "./App.css";
+import { genTickets, Sum } from "./helper";
 
-Currently, two official plugins are available:
+function App() {
+  let [ticket, setTicket] = useState(genTickets(3));
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  // if(Sum(ticket)===15){
+  //   console.log("you won a lottery")
+  // }
 
-## Expanding the ESLint configuration
+  let isWinning = Sum(ticket) === 15;
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+  function buyTickets(){
+    setTicket(genTickets(3));
+  }
+  return (
+    <>
+      <div className="h-screen flex justify-center items-center flex-col text-center ">
+        <h1 className="text-3xl font-bold">Lottery Tickets!</h1>j
+        <div className="border-2 p-2 w-96 m-2 rounded text-2xl">
+          <span>{ticket[0]}</span>
+          <span>{ticket[1]}</span>
+          <span>{ticket[2]}</span>
+        </div>
+        <button onClick={buyTickets} className="border rounded p-2 bg-blue-600">Buy Tickets</button>
+        <h3>{isWinning && "Congratulation you Won!"}</h3>
+      </div>
+    </>
+  );
+}
+
+export default App;
